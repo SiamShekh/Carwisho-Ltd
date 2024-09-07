@@ -1,7 +1,7 @@
 import Lottie from "lottie-react";
 import car_anim from "../assets/raw/car_anim.json";
 import { Link } from "react-router-dom";
-import { FaArrowRight, FaCheck } from "react-icons/fa";
+import { FaArrowRight, FaCheck, FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import car_racing from "../assets/image/car_racing.png";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { FaArrowPointer } from "react-icons/fa6";
@@ -118,32 +118,55 @@ const Home = () => {
             </section>
 
             <section>
-                <div className="min-h-screen py-10 max-w-[1200px] mx-auto p-5">
-                    <p className="text-blue-950 text-4xl text-center font-bold">What you want to say?</p>
-                    <p className="text-sm text-center mt-3">Our client sent us a bunch of smiles in appreciation of our service, <span className="block">and we love it!</span></p>
-                    <div className="h-64 w-full relative">
-                        <div className="flex justify-between items-center">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeTYN6BK8Yu9rSdsN8IER1O6Wg3Hri9ksdew&s" alt="" className="size-14 rounded-full mt-10" />
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToFc2aAoUSaSi1kWP1pMzWmWOGR_s6EjsigQ&s" alt="" className="size-10 rounded-full" />
-                        </div>
-                        <div className="flex justify-evenly mt-10">
-                            <img src="https://pbs.twimg.com/profile_images/1659678671873949697/BZZA2H9h_400x400.jpg" alt="" className="size-8 rounded-full" />
-                            <img src="https://pbs.twimg.com/profile_images/1295112038096629760/3eCOaKDb_400x400.jpg" alt="" className="size-6 rounded-full mt-10" />
+                <div className="py-10 max-w-[1200px] mx-auto">
+                    <p className="text-black text-opacity-60 text-center font-mono text-xl">Testimonial</p>
+                    <p className="text-black text-center font-mono text-2xl mt-3">Transformative Client Experience</p>
+                    <div className="grid grid-cols-3 gap-5 mt-10">
+                        <div className="p-5 bg-white rounded-2xl relative pb-20">
+                            <FaQuoteLeft className="text-4xl text-gray-500 my-3" />
+                            <p className="text-xl">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique, sapiente.</p>
+
+                            <div className="absolute bottom-0 left-0 bg-[#E9E7E7] px-5 py-2 rounded-bl-2xl rounded-tr-2xl">
+                                <div className="flex items-center gap-3">
+                                    <img src="https://i.pinimg.com/75x75_RS/11/c2/72/11c27232c3821e35e72935fbb8f4720a.jpg" alt="" className="size-10 rounded-full" />
+
+                                    <div className="">
+                                        <p className="text-xl font-bold">Siam Sheikh</p>
+                                        <p className="text-sm">User</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <img src="https://pbs.twimg.com/profile_images/1295112038096629760/3eCOaKDb_400x400.jpg" alt="" className="size-20 rounded-full absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]" />
+                        <div className="p-5 bg-white rounded-2xl relative pb-24">
+                            <FaQuoteLeft className="text-4xl text-gray-500 my-3" />
+                            <textarea className="text-sm outline-none w-full h-full" placeholder="write a feedback" />
+
+                            <button className="bg-lime-500 px-8 py-2 rounded-full absolute bottom-5 left-[50%] -translate-x-[50%]">Submit</button>
+
+                            <div className="absolute top-0 left-0 bg-black bg-opacity-60 w-full h-full rounded-2xl">
+                                <Link to={'/auth/login'} className="bg-lime-500 px-10 font-bold py-2 rounded-full absolute bottom-5 left-[50%] -translate-x-[50%]">Login</Link>
+                            </div>
+                        </div>
+
+                        <div className="p-5 bg-white rounded-2xl relative pb-20">
+                            <FaQuoteLeft className="text-4xl text-gray-500 my-3" />
+                            <p className="text-xl">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique, sapiente.</p>
+
+                            <div className="absolute bottom-0 left-0 bg-[#E9E7E7] px-5 py-2 rounded-bl-2xl rounded-tr-2xl">
+                                <div className="flex items-center gap-3">
+                                    <img src="https://i.pinimg.com/75x75_RS/11/c2/72/11c27232c3821e35e72935fbb8f4720a.jpg" alt="" className="size-10 rounded-full" />
+
+                                    <div className="">
+                                        <p className="text-xl font-bold">Siam Sheikh</p>
+                                        <p className="text-sm">User</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <form className="max-w-md bg-white rounded-2xl h-40 mx-auto p-5 relative">
-                        <textarea className="w-full outline-none h-full" placeholder="Write what you want to say to other people." />
-                        <button className="bg-lime-400 px-8 py-2 rounded-full font-bold absolute bottom-5 left-[50%] -translate-x-[50%]">Submit</button>
-
-                        <div className="bg-black w-full h-full absolute top-0 left-0 rounded-2xl bg-opacity-80">
-                            <Link to={'#'} className="bg-lime-400 px-8 py-2 h-fit rounded-full font-bold absolute bottom-5 left-[50%] -translate-x-[50%]">Login</Link>
-                        </div>
-                    </form>
-                    <div className="mx-auto text-center">
-                        <Link to={'#'} className="text-lime-900 font-bold text-xl">See All Reviews</Link>
+                    <div className="w-full flex justify-center items-center mt-5">
+                        <Link to={'#'} className="text-center font-mono text-[#7632e2] font-black text-xl">View More Review</Link>
                     </div>
                 </div>
             </section>

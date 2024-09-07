@@ -72,10 +72,10 @@ const Home = () => {
             </section>
 
             <section>
-                <div className="min-h-screen max-w-[1200px] mx-auto py-5">
+                <div className="min-h-screen max-w-[1200px] mx-auto p-5">
                     <p className="text-5xl font-bold text-center">Our Service</p>
 
-                    <div className="grid grid-cols-2 gap-5 mt-5">
+                    <div className="grid md:grid-cols-2 gap-5 mt-5">
 
                         <div className="bg-white relative  rounded-2xl h-72 p-5 border border-black border-b-8   ">
                             <p className="bg-[#C6A7F1] text-black text-xl w-fit">Car Washing</p>
@@ -113,6 +113,37 @@ const Home = () => {
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div className="min-h-screen py-10 max-w-[1200px] mx-auto p-5">
+                    <p className="text-blue-950 text-4xl text-center font-bold">What you want to say?</p>
+                    <p className="text-sm text-center mt-3">Our client sent us a bunch of smiles in appreciation of our service, <span className="block">and we love it!</span></p>
+                    <div className="h-64 w-full relative">
+                        <div className="flex justify-between items-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeTYN6BK8Yu9rSdsN8IER1O6Wg3Hri9ksdew&s" alt="" className="size-14 rounded-full mt-10" />
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToFc2aAoUSaSi1kWP1pMzWmWOGR_s6EjsigQ&s" alt="" className="size-10 rounded-full" />
+                        </div>
+                        <div className="flex justify-evenly mt-10">
+                            <img src="https://pbs.twimg.com/profile_images/1659678671873949697/BZZA2H9h_400x400.jpg" alt="" className="size-8 rounded-full" />
+                            <img src="https://pbs.twimg.com/profile_images/1295112038096629760/3eCOaKDb_400x400.jpg" alt="" className="size-6 rounded-full mt-10" />
+                        </div>
+
+                        <img src="https://pbs.twimg.com/profile_images/1295112038096629760/3eCOaKDb_400x400.jpg" alt="" className="size-20 rounded-full absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]" />
+                    </div>
+
+                    <form className="max-w-md bg-white rounded-2xl h-40 mx-auto p-5 relative">
+                        <textarea className="w-full outline-none h-full" placeholder="Write what you want to say to other people." />
+                        <button className="bg-lime-400 px-8 py-2 rounded-full font-bold absolute bottom-5 left-[50%] -translate-x-[50%]">Submit</button>
+
+                        <div className="bg-black w-full h-full absolute top-0 left-0 rounded-2xl bg-opacity-80">
+                            <Link to={'#'} className="bg-lime-400 px-8 py-2 h-fit rounded-full font-bold absolute bottom-5 left-[50%] -translate-x-[50%] top-[50%] -translate-y-[50%]">Login</Link>
+                        </div>
+                    </form>
+                    <div className="mx-auto text-center">
+                        <Link to={'#'} className="text-lime-900 font-bold text-xl">See All Reviews</Link>
                     </div>
                 </div>
             </section>

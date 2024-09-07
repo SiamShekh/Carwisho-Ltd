@@ -2,6 +2,22 @@ import Lottie from "lottie-react";
 import car_anim from "../assets/raw/car_anim.json";
 import { Link } from "react-router-dom";
 import { FaArrowRight, FaCheck } from "react-icons/fa";
+import car_racing from "../assets/image/car_racing.png";
+import { CiLocationArrow1 } from "react-icons/ci";
+import { FaArrowPointer } from "react-icons/fa6";
+
+const ServiceCategory = ({ link, name }: { link: string, name: string }) => {
+    return <div className="bg-white relative  rounded-2xl h-72 p-5 border border-black border-b-8   ">
+        <p className="bg-[#C6A7F1] text-black text-xl w-fit">Car Washing</p>
+        <img src={"https://cdni.iconscout.com/illustration/premium/thumb/car-cleaning-service-illustration-download-in-svg-png-gif-file-formats--washing-dry-wash-clean-up-soap-bubble-pack-people-illustrations-4453456.png?f=webp"} alt={name} className="object-cover h-60 absolute top-[50%] -translate-y-[50%] right-0" />
+        <div className="flex items-center gap-3 bottom-5 absolute">
+            <div className="text-lime-700 bg-black p-2 text-xl rounded-full"><FaArrowPointer /></div>
+            <p className="text-lime-700">Learn More</p>
+        </div>
+
+    </div>;
+}
+
 
 const Home = () => {
     return (
@@ -51,6 +67,52 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div className="min-h-screen max-w-[1200px] mx-auto py-5">
+                    <p className="text-5xl font-bold text-center">Our Service</p>
+
+                    <div className="grid grid-cols-2 gap-5 mt-5">
+
+                        <div className="bg-white relative  rounded-2xl h-72 p-5 border border-black border-b-8   ">
+                            <p className="bg-[#C6A7F1] text-black text-xl w-fit">Car Washing</p>
+                            <img src={"https://cdni.iconscout.com/illustration/premium/thumb/car-cleaning-service-illustration-download-in-svg-png-gif-file-formats--washing-dry-wash-clean-up-soap-bubble-pack-people-illustrations-4453456.png?f=webp"} alt={"car wash"} className="object-cover h-60 absolute top-[50%] -translate-y-[50%] right-0" />
+                            <div className="flex items-center gap-3 bottom-5 absolute">
+                                <div className="text-lime-700 bg-black p-2 text-xl rounded-full"><FaArrowPointer /></div>
+                                <p className="text-lime-700">Learn More</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-black relative  rounded-2xl h-72 p-5 border border-black border-b-8   ">
+                            <p className="bg-white text-black text-xl w-fit">Repair and Maintenance</p>
+                            <img src={"https://cdni.iconscout.com/illustration/premium/thumb/car-repair-service-illustration-download-in-svg-png-gif-file-formats--maintenance-repairman-mechanics-guard-auto-pack-services-illustrations-4683811.png?f=webp"} alt={"car wash"} className="object-cover h-60 absolute top-[50%] -translate-y-[50%] right-0" />
+                            <div className="flex items-center gap-3 bottom-5 absolute">
+                                <div className="text-black bg-white p-2 text-xl rounded-full"><FaArrowPointer /></div>
+                                <p className="text-white">Learn More</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-black relative  rounded-2xl h-72 p-5 border border-black border-b-8   ">
+                            <p className="bg-white text-black text-xl w-fit">Tire and Wheel Services</p>
+                            <img src={"https://cdni.iconscout.com/illustration/premium/thumb/car-mechanics-changing-tire-illustration-download-in-svg-png-gif-file-formats--tyre-change-service-man-male-mechanic-repairman-repair-pack-services-illustrations-2809551.png?f=webp"} alt={"car wash"} className="object-cover h-60 absolute top-[50%] -translate-y-[50%] right-0" />
+                            <div className="flex items-center gap-3 bottom-5 absolute">
+                                <div className="text-black bg-white p-2 text-xl rounded-full"><FaArrowPointer /></div>
+                                <p className="text-white">Learn More</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white relative  rounded-2xl h-72 p-5 border border-black border-b-8   ">
+                            <p className="bg-[#C6A7F1] text-black text-xl w-fit">Electrical and Diagnostics</p>
+                            <img src={"https://cdni.iconscout.com/illustration/premium/thumb/man-doing-battery-recharge-illustration-download-in-svg-png-gif-file-formats--charging-mobile-cell-car-service-pack-vehicle-illustrations-9739643.png?f=webp"} alt={"car wash"} className="object-cover h-60 absolute top-[50%] -translate-y-[50%] right-0" />
+                            <div className="flex items-center gap-3 bottom-5 absolute">
+                                <div className="text-lime-700 bg-black p-2 text-xl rounded-full"><FaArrowPointer /></div>
+                                <p className="text-lime-700">Learn More</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>

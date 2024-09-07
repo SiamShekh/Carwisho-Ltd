@@ -32,7 +32,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="flex justify-between items-center max-w-[1200px] mx-auto h-20 fixed top-0 left-[50%] -translate-x-[50%] w-full p-5">
+        <div className="flex justify-between rounded-full items-center max-w-[1200px] mx-auto h-20 fixed backdrop-blur-lg bg-white left-[50%] -translate-x-[50%] w-full p-5 z-50">
             <div className="text-xl mr-5 lg:hidden">
                 <label htmlFor="my-drawer">
                     <CiMenuBurger />
@@ -50,7 +50,7 @@ const Navbar = () => {
                             <Link to={item?.link} key={key} className={`font-mono text-xl text-opacity-70 text-black`}>{item?.name}</Link>
                         )}
                 </div>
-                <Link to={'/slot'} className="capitalize bg-[#C6A7F1] text-black font-mono text-xl px-6 py-2 rounded-lg">
+                <Link to={'/slot'} className="capitalize bg-[#C6A7F1] text-black font-mono text-xl px-6 py-2 rounded-full">
                     Book a slot
                 </Link>
             </div>

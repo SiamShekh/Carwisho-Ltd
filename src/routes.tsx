@@ -4,10 +4,12 @@ import AuthLayout from "./components/layouts/AuthLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
+import ErrorElement from "./components/layouts/ErrorElement";
 
 const DomRoutes = createBrowserRouter([
     {
         path: '/',
+        errorElement: <ErrorElement />,
         element: <MainLayout />,
         children: [
             {
@@ -18,6 +20,7 @@ const DomRoutes = createBrowserRouter([
     },
     {
         path: '/auth',
+        errorElement: <ErrorElement />,
         element: <AuthLayout />,
         children: [
             {

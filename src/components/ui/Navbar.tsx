@@ -32,8 +32,8 @@ const Navbar = () => {
 
 
     return (
-        <div className="flex justify-between bg-gray-200 items-center max-w-[1200px] mx-auto h-20 fixed top-0 left-[50%] -translate-x-[50%] w-full p-5">
-            <div className="text-xl mr-5">
+        <div className="flex justify-between items-center max-w-[1200px] mx-auto h-20 fixed top-0 left-[50%] -translate-x-[50%] w-full p-5">
+            <div className="text-xl mr-5 lg:hidden">
                 <label htmlFor="my-drawer">
                     <CiMenuBurger />
                 </label>
@@ -57,7 +57,7 @@ const Navbar = () => {
 
 
 
-            <div className="drawer">
+            <div className="drawer lg:hidden">
                 <input id="my-drawer" type="checkbox" className="drawer-toggle" />
 
                 <div className="drawer-side">

@@ -7,7 +7,7 @@ import DomRoutes from './routes.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <div>
+    <div data-theme="garden" >
       <RouterProvider router={DomRoutes} />
     </div>
   </React.StrictMode>,

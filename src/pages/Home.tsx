@@ -139,7 +139,7 @@ const Home = () => {
                         <button className="bg-lime-400 px-8 py-2 rounded-full font-bold absolute bottom-5 left-[50%] -translate-x-[50%]">Submit</button>
 
                         <div className="bg-black w-full h-full absolute top-0 left-0 rounded-2xl bg-opacity-80">
-                            <Link to={'#'} className="bg-lime-400 px-8 py-2 h-fit rounded-full font-bold absolute bottom-5 left-[50%] -translate-x-[50%] top-[50%] -translate-y-[50%]">Login</Link>
+                            <Link to={'#'} className="bg-lime-400 px-8 py-2 h-fit rounded-full font-bold absolute bottom-5 left-[50%] -translate-x-[50%]">Login</Link>
                         </div>
                     </form>
                     <div className="mx-auto text-center">

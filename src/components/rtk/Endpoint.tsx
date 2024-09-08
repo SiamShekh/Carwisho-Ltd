@@ -23,9 +23,16 @@ const Endpoint = BaseQuery.injectEndpoints({
                 method: "GET"
             }),
             providesTags: ["me"]
-        })
+        }),
+        ServiceList: builder.query({
+            query: (arg) => ({
+                url: '/services',
+                method: "GET",
+                params: arg
+            }),
+        }),
     })
 })
 
-export const { useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery } = Endpoint;
+export const { useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

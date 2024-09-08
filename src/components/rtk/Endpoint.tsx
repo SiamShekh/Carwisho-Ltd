@@ -31,8 +31,21 @@ const Endpoint = BaseQuery.injectEndpoints({
                 params: arg
             }),
         }),
+        SingleServiceData: builder.query({
+            query: (arg) => ({
+                url: `/services/${arg}`,
+                method: "GET",
+            }),
+        }),
+        SlotInformission: builder.query({
+            query: (arg) => ({
+                url: '/slots/availability',
+                method: "GET",
+                params: arg
+            })
+        })
     })
 })
 
-export const { useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const { useSlotInformissionQuery,useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

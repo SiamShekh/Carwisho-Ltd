@@ -4,10 +4,10 @@ import UserSlice from "./UserSlice";
 
 const ReduxStore = configureStore({
     reducer: {
-        'api': BaseQuery.reducer,
+        [BaseQuery.reducerPath]: BaseQuery.reducer,
         'user': UserSlice.reducer
     },
-    middleware: (getdefaultmiddlewars)=> getdefaultmiddlewars({serializableCheck: {}}).concat(BaseQuery.middleware)
+    middleware: (getdefaultmiddlewars)=> getdefaultmiddlewars().concat(BaseQuery.middleware)
 });
 
 export default ReduxStore;

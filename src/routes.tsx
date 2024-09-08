@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import ErrorElement from "./components/layouts/ErrorElement";
 import Service from "./pages/Service";
+import Service_Details from "./pages/Service_Details";
 
 const DomRoutes = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const DomRoutes = createBrowserRouter([
             {
                 path: 'service',
                 element: <Service />
+            },
+            {
+                path: 'service/:id',
+                element: <Service_Details />
             },
         ]
     },

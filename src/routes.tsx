@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import ErrorElement from "./components/layouts/ErrorElement";
 import Service from "./pages/Service";
+import RouteProtector from "./components/utils/RouteProtector";
 
 const DomRoutes = createBrowserRouter([
     {
@@ -19,14 +20,14 @@ const DomRoutes = createBrowserRouter([
             },
             {
                 path: 'service',
-                element: <Service />
+                element: <RouteProtector><Service /></RouteProtector>
             },
         ]
     },
     {
         path: '/auth',
         errorElement: <ErrorElement />,
-        element: <AuthLayout />,
+        element: <RouteProtector><AuthLayout /></RouteProtector>,
         children: [
             {
                 path: 'login',

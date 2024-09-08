@@ -1,8 +1,11 @@
 import { useForm, } from 'react-hook-form';
-import { FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../components/rtk/Endpoint';
 import LoadingModal from '../components/ui/LoadingModal';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../components/rtk/UserSlice';
+import { useEffect } from 'react';
 
 interface LoginFormData {
     email: string,
@@ -12,12 +15,23 @@ interface LoginFormData {
 const Login = () => {
 
     const { register, handleSubmit, reset } = useForm<LoginFormData>();
-    const [triggerLogin, { isLoading }] = useLoginUserMutation();
-
+    const [triggerLogin, { isLoading, data }] = useLoginUserMutation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const HandleLogin = (data: LoginFormData) => {
         triggerLogin(data);
         reset();
     }
+
+    useEffect(() => {
+        if (data?.success) {
+            if (data?.message) {
+                toast.success(data?.message);
+                dispatch(setUser({ token: data?.token, email: data?.data?.email }));
+                navigate('/service');
+            }
+        }
+    }, [data, dispatch])
 
     return (
         <div>

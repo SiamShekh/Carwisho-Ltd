@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import toast from "react-hot-toast";
+import { AppRoot } from "./ReduxStore";
+
 
 const BaseQuery = createApi({
     reducerPath: 'api',
@@ -16,6 +18,15 @@ const BaseQuery = createApi({
             }
 
             return result;
+        },
+        prepareHeaders: (headers, { getState }) => {
+            const token = (getState() as AppRoot).user.token; 
+            console.log(token);
+            
+            if (token) {
+                headers.set("Authorization", `Bearer ${token}`);
+            }
+            return headers;
         }
     }),
 

@@ -15,9 +15,15 @@ const Endpoint = BaseQuery.injectEndpoints({
                 body: arg,
                 method: "POST"
             })
+        }),
+        onAuthState: builder.query({
+            query: () => ({
+                url: '/auth/me',
+                method: "GET"
+            })
         })
     })
 })
 
-export const { useLoginUserMutation, useRegisterUserMutation } = Endpoint;
+export const { useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery } = Endpoint;
 export default Endpoint;

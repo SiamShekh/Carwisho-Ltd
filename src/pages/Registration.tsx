@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useRegisterUserMutation } from '../components/rtk/Endpoint';
 import LoadingModal from '../components/ui/LoadingModal';
 import toast from 'react-hot-toast';
+import { useEffect } from 'react';
 
 interface TUser {
     name: string,
@@ -21,9 +22,13 @@ const Registration = () => {
         triggerRegister({ role: 'user', ...data });
     }
 
-    if (data?.message) {
-        toast.success(data?.message);
-    }
+    useEffect(() => {
+        if (data?.success) {
+            if (data?.message) {
+                toast.success(data?.message);
+            }
+        }
+    }, [data])
 
     return (
         <div>

@@ -14,13 +14,15 @@ const Endpoint = BaseQuery.injectEndpoints({
                 url: '/auth/signup',
                 body: arg,
                 method: "POST"
-            })
+            }),
+            invalidatesTags: ["me"]
         }),
         onAuthState: builder.query({
             query: () => ({
                 url: '/auth/me',
                 method: "GET"
-            })
+            }),
+            providesTags: ["me"]
         })
     })
 })

@@ -1,13 +1,10 @@
-import React, { ReactNode, useEffect } from "react";
-import { useLazyOnAuthStateQuery } from "../rtk/Endpoint";
+import React, { ReactNode } from "react";
+import { useOnAuthStateQuery } from "../rtk/Endpoint";
 import ProtectorLoading from "../ui/ProtectorLoading";
 
 const RouteProtector: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [triggerData, { data, isFetching, isSuccess }] = useLazyOnAuthStateQuery(undefined);
-    
-    useEffect(() => {
-        triggerData(undefined);
-    }, [])
+    const { data, isFetching, isSuccess } = useOnAuthStateQuery(undefined);
+
 
     const location = window.location.pathname;
 

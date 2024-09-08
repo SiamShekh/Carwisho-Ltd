@@ -4,6 +4,7 @@ import { AppRoot } from "./ReduxStore";
 
 
 const BaseQuery = createApi({
+    tagTypes: ["me"],
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:3000/api',

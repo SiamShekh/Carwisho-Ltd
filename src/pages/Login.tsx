@@ -28,7 +28,7 @@ const Login = () => {
             if (data?.message) {
                 toast.success(data?.message);
                 dispatch(setUser({ token: data?.token, email: data?.data?.email }));
-                navigate('/service');
+                navigate('/');
             }
         }
     }, [data, dispatch])

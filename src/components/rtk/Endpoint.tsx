@@ -25,5 +25,5 @@ const Endpoint = BaseQuery.injectEndpoints({
     })
 })
 
-export const { useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery } = Endpoint;
+export const { useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery } = Endpoint;
 export default Endpoint;

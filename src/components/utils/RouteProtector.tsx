@@ -1,28 +1,33 @@
 import React, { ReactNode, useEffect } from "react";
-import { useOnAuthStateQuery } from "../rtk/Endpoint";
-import { useDispatch } from "react-redux";
-import { logoutUser } from "../rtk/UserSlice";
+import { useLazyOnAuthStateQuery } from "../rtk/Endpoint";
 import ProtectorLoading from "../ui/ProtectorLoading";
 
 const RouteProtector: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const { data, isFetching, isSuccess } = useOnAuthStateQuery(undefined);
-    const dispatch = useDispatch();
+    const [triggerData, { data, isFetching, isSuccess }] = useLazyOnAuthStateQuery(undefined);
+    
+    useEffect(() => {
+        triggerData(undefined);
+    }, [])
+
     const location = window.location.pathname;
 
-    useEffect(() => {
-        if (isSuccess && data?.data?.ping !== true) {
-            dispatch(logoutUser());
-            if (!location.includes('/auth')) {
-                window.location.href = '/auth/login';
-            }
+    if (isSuccess && data?.data?.ping !== true) {
+        if (!location.includes('/auth')) {
+            window.location.href = '/auth/login';
         }
-    }, [data, isSuccess, dispatch]);
+    }
 
     if (isFetching) {
         return <ProtectorLoading isLoading={true} />;
     }
 
+    if (isSuccess && data?.data?.ping === true) {
+        if (location.includes('/auth')) {
+            window.location.href = '/';
+        }
+    }
     return children;
+
 };
 
 export default RouteProtector;

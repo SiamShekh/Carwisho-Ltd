@@ -8,9 +8,16 @@ const Endpoint = BaseQuery.injectEndpoints({
                 body: arg,
                 method: "POST"
             })
+        }),
+        RegisterUser: builder.mutation({
+            query: (arg) => ({
+                url: '/auth/signup',
+                body: arg,
+                method: "POST"
+            })
         })
     })
 })
 
-export const {useLoginUserMutation } = Endpoint;
+export const { useLoginUserMutation, useRegisterUserMutation } = Endpoint;
 export default Endpoint;

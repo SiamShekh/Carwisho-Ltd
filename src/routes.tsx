@@ -7,6 +7,7 @@ import Registration from "./pages/Registration";
 import ErrorElement from "./components/layouts/ErrorElement";
 import Service from "./pages/Service";
 import Service_Details from "./pages/Service_Details";
+import RouteProtector from "./components/utils/RouteProtector";
 
 const DomRoutes = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ const DomRoutes = createBrowserRouter([
             },
             {
                 path: 'service',
-                element: <Service />
+                element: <RouteProtector><Service /></RouteProtector>
             },
             {
                 path: 'service/:id',
@@ -31,7 +32,7 @@ const DomRoutes = createBrowserRouter([
     {
         path: '/auth',
         errorElement: <ErrorElement />,
-        element: <AuthLayout />,
+        element: <RouteProtector><AuthLayout /></RouteProtector>,
         children: [
             {
                 path: 'login',

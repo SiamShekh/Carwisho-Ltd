@@ -32,7 +32,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="flex justify-between rounded-full items-center max-w-[1200px] mx-auto h-fit fixed backdrop-blur-lg bg-white left-[50%] -translate-x-[50%] w-full px-5 py-3 md:py-5 z-50">
+        <div className="flex justify-between rounded-full items-center max-w-[1200px] mx-auto h-fit fixed backdrop-blur-lg bg-white left-[50%] -translate-x-[50%] w-full px-5 py-3 md:py-5 z-20">
             <div className="text-xl mr-5 lg:hidden">
                 <label htmlFor="my-drawer">
                     <CiMenuBurger />

@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+# src/components/rtk/BaseQuery.tsx
 *.local
 # firebase.config.ts
 

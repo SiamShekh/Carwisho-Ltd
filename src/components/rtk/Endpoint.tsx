@@ -24,6 +24,13 @@ const Endpoint = BaseQuery.injectEndpoints({
             }),
             providesTags: ["me"]
         }),
+        onAuthStateUser: builder.query({
+            query: () => ({
+                url: '/auth/my-info',
+                method: "GET"
+            }),
+            providesTags: ["me"]
+        }),
         ServiceList: builder.query({
             query: (arg) => ({
                 url: '/services',
@@ -43,9 +50,16 @@ const Endpoint = BaseQuery.injectEndpoints({
                 method: "GET",
                 params: arg
             })
-        })
+        }),
+        SingleSlotInformission: builder.query({
+            query: (arg) => ({
+                url: '/slots',
+                method: "GET",
+                params: { id: arg }
+            })
+        }),
     })
 })
 
-export const { useSlotInformissionQuery,useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const { useOnAuthStateUserQuery,useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

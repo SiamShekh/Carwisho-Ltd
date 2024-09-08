@@ -8,6 +8,7 @@ import ErrorElement from "./components/layouts/ErrorElement";
 import Service from "./pages/Service";
 import Service_Details from "./pages/Service_Details";
 import RouteProtector from "./components/utils/RouteProtector";
+import Booking from "./pages/Booking";
 
 const DomRoutes = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const DomRoutes = createBrowserRouter([
                 path: 'service/:id',
                 element: <Service_Details />
             },
+            {
+                path: 'booking/:id',
+                element: <Booking />
+            }
         ]
     },
     {

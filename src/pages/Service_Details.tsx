@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSingleServiceDataQuery, useSlotInformissionQuery } from "../components/rtk/Endpoint";
 import LoadingModal from "../components/ui/LoadingModal";
 import { useState } from "react";
@@ -20,7 +20,6 @@ const Service_Details = () => {
     const [date, setDate] = useState("2024-06-20");
     const [slot_selected, setSlotSelected] = useState("");
     const { data: SlotInfo, isLoading: SlotLoading } = useSlotInformissionQuery({ date, service: id });
-    console.log(SlotInfo);
 
     return (
         <div className="min-h-screen max-w-[1200px] mx-auto lg:mt-28 mt-20 p-5">
@@ -29,7 +28,7 @@ const Service_Details = () => {
             <div className="p-5 bg-white rounded-lg w-full">
                 <p className="font-bold text-xl"># {data?.data?.name}</p>
                 <p className="font-mono">{data?.data?.description}</p>
-                <div className="flex justify-between items-center md:flex-row-reverse flex-col">
+                <div className="flex justify-between items-center mb-3 md:flex-row-reverse flex-col">
                     <div className="">
                         <div className="badge badge-secondary mr-3">{data?.data?.price} TK</div>
                         <div className="badge badge-accent">{data?.data?.duration} Mins</div>
@@ -43,7 +42,7 @@ const Service_Details = () => {
                 </div>
                 {
                     slot_selected &&
-                    <button className="bg-lime-500 px-5 py-1 rounded-full font-bold mt-3">Add this service</button>
+                    <Link to={`/booking/${slot_selected}`} className="bg-lime-500 px-5 py-1 rounded-full font-bold mt-3">Add this service</Link>
                 }
 
             </div>

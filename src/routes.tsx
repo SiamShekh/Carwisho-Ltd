@@ -15,6 +15,7 @@ import UserManagement from "./pages/Admin/UserManagement";
 import SlotManagement from "./pages/Admin/SlotManagement";
 import ServiceManagement from "./pages/Admin/ServiceManagement";
 import BookingManagement from "./pages/Admin/BookingManagement";
+import Dashboard from "./pages/Admin/Dashboard";
 
 const DomRoutes = createBrowserRouter([
     {
@@ -60,6 +61,14 @@ const DomRoutes = createBrowserRouter([
         errorElement: <ErrorElement />,
         element: <RouteProtectorAdmin><AdminLayout /></RouteProtectorAdmin>,
         children: [
+            {
+                index: true,
+                element: <Dashboard />
+            },
+            {
+                path: 'dashboard',
+                element: <Dashboard />
+            },
             {
                 path: 'user',
                 element: <UserManagement />

@@ -5,6 +5,10 @@ const AdminLayout = () => {
     const location = useLocation().pathname;
     const NavList = [
         {
+            link: '/admin/dashboard',
+            name: 'Dashboard'
+        },
+        {
             link: '/admin/user',
             name: 'User'
         },

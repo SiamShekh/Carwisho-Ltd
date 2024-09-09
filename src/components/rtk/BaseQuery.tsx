@@ -4,7 +4,7 @@ import { AppRoot } from "./ReduxStore";
 
 
 const BaseQuery = createApi({
-    tagTypes: ["me"],
+    tagTypes: ["me", "admin_user_list", "admin_service_list"],
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:3000/api',
@@ -22,7 +22,6 @@ const BaseQuery = createApi({
         },
         prepareHeaders: (headers, { getState }) => {
             const token = (getState() as AppRoot).user.token; 
-            console.log(token);
             
             if (token) {
                 headers.set("Authorization", `Bearer ${token}`);

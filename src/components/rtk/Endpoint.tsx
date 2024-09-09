@@ -45,6 +45,37 @@ const Endpoint = BaseQuery.injectEndpoints({
                 params: arg
             }),
         }),
+        ServiceListAdmin: builder.query({
+            query: (arg) => ({
+                url: '/admin/services',
+                method: "GET",
+                params: arg
+            }),
+            providesTags: ["admin_service_list"]
+        }),
+        AddServiceAdmin: builder.mutation({
+            query: (arg) => ({
+                url: '/services',
+                method: "POST",
+                body: arg
+            }),
+            invalidatesTags: ["admin_service_list"]
+        }),
+        UpdateServiceAdmin: builder.mutation({
+            query: (arg) => ({
+                url: `/services/${arg?.id}`,
+                method: "PUT",
+                body: arg?.body
+            }),
+            invalidatesTags: ["admin_service_list"]
+        }),
+        DeleteServiceAdmin: builder.mutation({
+            query: (arg) => ({
+                url: `/services/${arg}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["admin_service_list"]
+        }),
         SingleServiceData: builder.query({
             query: (arg) => ({
                 url: `/services/${arg}`,
@@ -65,14 +96,23 @@ const Endpoint = BaseQuery.injectEndpoints({
                 params: { id: arg }
             })
         }),
-        AdminDashboardInfo: builder.query({
+        UserListAdmin: builder.query({
             query: () => ({
-                url: '/dashboard/info',
+                url: '/admin/user-list',
                 method: "GET",
-            })
+            }),
+            providesTags: ["admin_user_list"]
+        }),
+        AppointAdmin: builder.mutation({
+            query: (arg) => ({
+                url: '/admin/appoint-admin',
+                body: { id: arg },
+                method: "POST"
+            }),
+            invalidatesTags: ["admin_user_list"]
         }),
     })
 })
 
-export const { useAdminDashboardInfoQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const {useDeleteServiceAdminMutation,useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

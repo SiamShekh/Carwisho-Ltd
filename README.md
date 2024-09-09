@@ -24,20 +24,11 @@
 - **Login Page:**
     - **Please make sure to provide the admin login credentials when submitting the assignment.** 
 
-**4. Service Details Page**
-
 **5. Booking Page**
 
 - **Functionality:**
     - Upon clicking the "Pay Now" button, the user will be redirected to AAMARPAY, and the slot status associated with the booking will be marked as "booked."
     - Redirects the user to a success page after payment.
-
-### Admin Pages
-
-**1. Admin Dashboard**
-- **Features:** Overview of recent bookings, user management, slot management, and service management.
-
----
 
 ### User Pages
 

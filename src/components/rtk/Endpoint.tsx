@@ -147,8 +147,14 @@ const Endpoint = BaseQuery.injectEndpoints({
                 method: "GET"
             }),
         }),
+        MyBooking: builder.query({
+            query: () => ({
+                url: '/my-bookings',
+                method: "GET"
+            }),
+        }),
     })
 })
 
-export const { useAdminDashboardQuery, useGetAllBookingQuery, useChangeSlotStatusMutation, useGetSlotsQuery, useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const { useMyBookingQuery,useAdminDashboardQuery, useGetAllBookingQuery, useChangeSlotStatusMutation, useGetSlotsQuery, useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

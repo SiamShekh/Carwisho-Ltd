@@ -16,6 +16,7 @@ import SlotManagement from "./pages/Admin/SlotManagement";
 import ServiceManagement from "./pages/Admin/ServiceManagement";
 import BookingManagement from "./pages/Admin/BookingManagement";
 import Dashboard from "./pages/Admin/Dashboard";
+import UDashboard from "./pages/User/Dashboard";
 
 const DomRoutes = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const DomRoutes = createBrowserRouter([
             {
                 index: true,
                 element: <Home />
+            },
+            {
+                path: 'dashboard',
+                element: <UDashboard />
             },
             {
                 path: 'service',

@@ -9,6 +9,12 @@ import Service from "./pages/Service";
 import Service_Details from "./pages/Service_Details";
 import RouteProtector from "./components/utils/RouteProtector";
 import Booking from "./pages/Booking";
+import AdminLayout from "./components/layouts/AdminLayout";
+import RouteProtectorAdmin from "./components/utils/RouteProtectorAdmin";
+import UserManagement from "./pages/Admin/UserManagement";
+import SlotManagement from "./pages/Admin/SlotManagement";
+import ServiceManagement from "./pages/Admin/ServiceManagement";
+import BookingManagement from "./pages/Admin/BookingManagement";
 
 const DomRoutes = createBrowserRouter([
     {
@@ -47,6 +53,29 @@ const DomRoutes = createBrowserRouter([
                 path: 'registration',
                 element: <Registration />
             },
+        ]
+    },
+    {
+        path: '/admin',
+        errorElement: <ErrorElement />,
+        element: <RouteProtectorAdmin><AdminLayout /></RouteProtectorAdmin>,
+        children: [
+            {
+                path: 'user',
+                element: <UserManagement />
+            },
+            {
+                path: 'slot',
+                element: <SlotManagement />
+            },
+            {
+                path: 'service',
+                element: <ServiceManagement />
+            },
+            {
+                path: 'booking',
+                element: <BookingManagement />
+            }
         ]
     }
 ]);

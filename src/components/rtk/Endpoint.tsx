@@ -24,6 +24,13 @@ const Endpoint = BaseQuery.injectEndpoints({
             }),
             providesTags: ["me"]
         }),
+        onAuthStateAdmin: builder.query({
+            query: () => ({
+                url: '/auth/my-admin',
+                method: "GET"
+            }),
+            providesTags: ["me"]
+        }),
         onAuthStateUser: builder.query({
             query: () => ({
                 url: '/auth/my-info',
@@ -58,8 +65,14 @@ const Endpoint = BaseQuery.injectEndpoints({
                 params: { id: arg }
             })
         }),
+        AdminDashboardInfo: builder.query({
+            query: () => ({
+                url: '/dashboard/info',
+                method: "GET",
+            })
+        }),
     })
 })
 
-export const { useOnAuthStateUserQuery,useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const { useAdminDashboardInfoQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

@@ -119,8 +119,30 @@ const Endpoint = BaseQuery.injectEndpoints({
             }),
             invalidatesTags: ["admin_slots"]
         }),
+        GetSlots: builder.query({
+            query: (arg) => ({
+                url: '/admin/slots',
+                params: { serviceId: arg },
+                method: "GET"
+            }),
+            providesTags: ["admin_slots"]
+        }),
+        ChangeSlotStatus: builder.mutation({
+            query: (arg) => ({
+                url: '/admin/changed/slots',
+                body: { id: arg },
+                method: "PUT"
+            }),
+            invalidatesTags: ["admin_slots"]
+        }),
+        GetAllBooking: builder.query({
+            query: () => ({
+                url: '/bookings',
+                method: "GET"
+            }),
+        }),
     })
 })
 
-export const { useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const { useGetAllBookingQuery,useChangeSlotStatusMutation,useGetSlotsQuery, useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

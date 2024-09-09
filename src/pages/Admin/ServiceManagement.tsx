@@ -3,7 +3,7 @@ import { useAddServiceAdminMutation, useDeleteServiceAdminMutation, useServiceLi
 import LoadingModal from '../../components/ui/LoadingModal';
 import { useForm } from 'react-hook-form';
 
-interface TService {
+export interface TService {
     _id?: string,
     name: string,
     description: string,

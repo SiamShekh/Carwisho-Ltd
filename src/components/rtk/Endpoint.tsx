@@ -111,8 +111,16 @@ const Endpoint = BaseQuery.injectEndpoints({
             }),
             invalidatesTags: ["admin_user_list"]
         }),
+        CreateSlots: builder.mutation({
+            query: (arg) => ({
+                url: '/services/slots',
+                body: arg,
+                method: "POST"
+            }),
+            invalidatesTags: ["admin_slots"]
+        }),
     })
 })
 
-export const {useDeleteServiceAdminMutation,useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const { useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

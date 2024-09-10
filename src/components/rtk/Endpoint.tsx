@@ -153,8 +153,16 @@ const Endpoint = BaseQuery.injectEndpoints({
                 method: "GET"
             }),
         }),
+        UpdateAccountInfo: builder.mutation({
+            query: (arg) => ({
+                url: '/user/update-account',
+                body: arg,
+                method: "PUT"
+            }),
+            invalidatesTags: ["me"]
+        }),
     })
 })
 
-export const { useMyBookingQuery,useAdminDashboardQuery, useGetAllBookingQuery, useChangeSlotStatusMutation, useGetSlotsQuery, useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const { useLazyOnAuthStateUserQuery, useUpdateAccountInfoMutation, useMyBookingQuery, useAdminDashboardQuery, useGetAllBookingQuery, useChangeSlotStatusMutation, useGetSlotsQuery, useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

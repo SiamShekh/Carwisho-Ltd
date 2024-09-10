@@ -37,8 +37,6 @@
 - **Features:** Overview of bookings and account information.
 - **Functionality:**
     - Update profiles, and manage personal information.
-    - **Past Bookings:** Displayed in tabular format.
-    - **Upcoming Bookings:** Displayed in card format with a countdown timer.
 
 **2. Service Slot Countdown**
 

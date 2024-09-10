@@ -1,84 +1,219 @@
-import { useEffect, useState } from "react";
-import { useMyBookingQuery } from '../../components/rtk/Endpoint';
-
-interface BookingData {
+import Countdown from 'react-countdown';
+import { useLazyOnAuthStateUserQuery, useMyBookingQuery, useOnAuthStateUserQuery, useUpdateAccountInfoMutation } from '../../components/rtk/Endpoint';
+import LoadingModal from '../../components/ui/LoadingModal';
+import Lottie from 'lottie-react';
+import car_anim from "../../assets/raw/car_anim.json";
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+interface TBooking {
     _id: string;
-    service: string;
-    startTime: string; // "05:00"
-    endTime: string; // "06:00"
-    date: string; // "2024-06-20"
-    isBooked: string;
-    createdAt: string;
-    updatedAt: string;
+    customerId: TCustomer;
+    serviceId: TService;
+    slotId: TSlot;
+    vehicleType: string;
+    vehicleBrand: string;
+    vehicleModel: string;
+    manufacturingYear: number;
+    registrationPlate: string;
     __v: number;
 }
 
-const targetData: BookingData = {
-    _id: "667365a11715081e8bb70411",
-    service: "667364cd1715081e8bb70401",
-    startTime: "20:00",
-    endTime: "21:00",
-    date: "2024-09-09",
-    isBooked: "booked",
-    createdAt: "2024-06-19T23:11:29.649Z",
-    updatedAt: "2024-06-19T23:22:36.381Z",
-    __v: 0
-};
+interface TCustomer {
+    _id: string;
+    name: string;
+    phone: string;
+    email: string;
+    address: string;
+}
 
+interface TService {
+    _id: string;
+    name: string;
+    description: string;
+    price: number;
+    duration: number; // in minutes
+    isDeleted: boolean;
+    __v: number;
+}
+
+interface TSlot {
+    _id: string;
+    service: string; // Service ID
+    startTime: string; // Format: HH:mm
+    endTime: string;  // Format: HH:mm
+    date: string; // Format: YYYY-MM-DD
+    isBooked: string;
+    createdAt: string; // ISO string
+    updatedAt: string; // ISO string
+    __v: number;
+}
 
 const Dashboard = () => {
-    // const { data, isFetching } = useMyBookingQuery(undefined);
-    // console.log(data);
-    const [currentTime, setCurrentTime] = useState<Date>(new Date());
-    const [countdown, setCountdown] = useState<number | null>(null);
+    const { data, isFetching } = useMyBookingQuery(undefined);
+    const { data: Account, isFetching: fetch } = useOnAuthStateUserQuery(undefined);
+    const [triggerUpdateAccount, { isLoading }] = useUpdateAccountInfoMutation();
+    const passedEvents: TBooking[] = [];
+    const upcomingEvents: TBooking[] = [];
 
-    // Parse startTime, endTime, and date into full Date objects in UTC (Z at the end ensures UTC timezone)
-    const startDateTime = new Date(`${targetData.date}T${targetData.startTime}:00Z`);
-    const endDateTime = new Date(`${targetData.date}T${targetData.endTime}:00Z`);
+    const getRecentUpcomingEvent = () => {
 
-    // Update current time every second
-    useEffect(() => {
-        const timer = setInterval(() => {
-            const now = new Date();
-            setCurrentTime(now);
+        data?.data?.forEach((event: TBooking) => {
 
-            // Debugging logs to check the values of currentTime, startDateTime, and endDateTime
-            console.log("Current Time:", now.toLocaleString());
-            console.log("Start Time:", startDateTime.toLocaleString());
-            console.log("End Time:", endDateTime.toLocaleString());
+            const currentDate = new Date();
+            const targetDateTime = new Date(event?.slotId?.date + " " + event?.slotId?.startTime);
 
-            // If the current time is past the start time, start the countdown
-            if (now >= startDateTime && now < endDateTime) {
-                console.log("Countdown should start now.");
-                const remainingTime = Math.floor((endDateTime.getTime() - now.getTime()) / 1000);
-                setCountdown(remainingTime);
-            } else if (now >= endDateTime) {
-                console.log("Time's up!");
-                setCountdown(0); // Time's up
+            if (currentDate > targetDateTime) {
+                passedEvents.push(event);
+            } else {
+                upcomingEvents.push(event);
             }
-        }, 1000); // 1-second interval
+        });
 
-        return () => clearInterval(timer);
-    }, [startDateTime, endDateTime]);
+        upcomingEvents.sort((a, b) => new Date(a.slotId.date + " " + a?.slotId?.startTime).getTime() - new Date(b.slotId.date + " " + b?.slotId?.startTime).getTime());
 
-    // Format the countdown in minutes and seconds
-    const formatTime = (seconds: number) => {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
-    };
+        return upcomingEvents.length > 0 ? upcomingEvents[0] : null;
+    }
+
+    const recentComming = getRecentUpcomingEvent();
+    const recentTimeStamp = new Date(recentComming?.slotId.date + " " + recentComming?.slotId.startTime).getTime();
+
+    const { register, handleSubmit, reset } = useForm();
+    const [isProfileEdit, setProfileEdit] = useState(false);
+    const HandleUpdateAccount = (data) => {
+        triggerUpdateAccount(data);
+        setProfileEdit(true);
+        reset();
+    }
 
     return (
-        <div className="min-h-screen mt-28">
-            {currentTime < startDateTime ? (
-                <h1>Waiting for countdown to start...</h1>
-            ) : countdown !== null ? (
-                countdown > 0 ? (
-                    <h1>Countdown: {formatTime(countdown)}</h1>
-                ) : (
-                    <h1>Time's up!</h1>
-                )
-            ) : null}
+        <div className='max-w-[1200px] mx-auto min-h-screen mt-28 m-5'>
+            <LoadingModal isLoading={isFetching} />
+            <LoadingModal isLoading={isLoading} />
+            <LoadingModal isLoading={fetch} />
+
+            {
+                isProfileEdit &&
+                <dialog id="my_modal_1" open className="modal">
+                    <div className="modal-box bg-white">
+                        <h3 className="font-bold text-lg">Update Account Info!</h3>
+                        <form onSubmit={handleSubmit(HandleUpdateAccount)}>
+                            <label className="form-control w-full">
+                                <div className="label">
+                                    <span className="label-text">Name</span>
+                                </div>
+                                <input type="text" {...register("name")} defaultValue={Account?.data?.name} className='bg-gray-200 p-3 w-full bg-opacity-40 border border-black border-opacity-35 rounded-xl' />
+                            </label>
+
+                            <label className="form-control w-full">
+                                <div className="label">
+                                    <span className="label-text">Address</span>
+                                </div>
+                                <input type="text" {...register("address")} defaultValue={Account?.data?.address} className='bg-gray-200 p-3 w-full bg-opacity-40 border border-black border-opacity-35 rounded-xl' />
+                            </label>
+
+                            <label className="form-control w-full">
+                                <div className="label">
+                                    <span className="label-text">Phone</span>
+                                </div>
+                                <input type="text" {...register("phone")} defaultValue={Account?.data?.phone} className='bg-gray-200 p-3 w-full bg-opacity-40 border border-black border-opacity-35 rounded-xl' />
+                            </label>
+
+                            <label className="form-control w-full">
+                                <div className="label">
+                                    <span className="label-text">New Password</span>
+                                </div>
+                                <input type="text" {...register("newPassword")} placeholder='Type new password' className='bg-gray-200 p-3 w-full bg-opacity-40 border border-black border-opacity-35 rounded-xl' />
+                            </label>
+
+                            <label className="form-control w-full">
+                                <div className="label">
+                                    <span className="label-text">Current Password</span>
+                                </div>
+                                <input type="text" {...register("password")} placeholder='type currect passowrd' className='bg-gray-200 p-3 w-full bg-opacity-40 border border-black border-opacity-35 rounded-xl' />
+                            </label>
+
+                            <div className="flex justify-between items-center gap-4">
+                                <button type="submit" className='bg-lime-400 p-3 w-full rounded-lg mt-5'>Update Account</button>
+                                <button type="button" className='bg-lime-400 p-3 w-full rounded-lg mt-5' onClick={()=> setProfileEdit(false)}>Cancel</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </dialog>
+            }
+
+            <div className="flex items-center gap-4 justify-between bg-white bg-opacity-40 border border-black border-opacity-35 rounded-xl p-5 my-5">
+                <div className="flex gap-3">
+                    <img src="https://i.guim.co.uk/img/media/b8a75934f827bdaf02a3814d1669c8da19886881/0_727_3500_2100/master/3500.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1ad9e12c908d182c891b03abc19988f4" className='size-10 rounded-full' />
+                    <div className="">
+                        <p className='font-bold'>Siam Sheikh</p>
+                        <p>User</p>
+                    </div>
+                </div>
+
+                <div className="">
+                    <button onClick={() => setProfileEdit(true)} className='bg-lime-400 px-6 py-1 rounded-full font-sans text-xl font-bold'>Edit</button>
+                </div>
+            </div>
+            <div className="grid grid-cols-3 gap-5 ">
+                <div className="col-span-2">
+                    <p>Completed slot</p>
+
+                    <div className="col-span-2 bg-white bg-opacity-40 border border-black border-opacity-35 rounded-xl h-fit">
+                        <div className="overflow-x-auto">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Slot Time</th>
+                                        <th>Vehicle Type</th>
+                                        <th>Vehicle Brand</th>
+                                        <th>Registration Plate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        passedEvents.map((item, index) => <tr className={`capitalize`} key={index}>
+                                            <th>{index + 1}</th>
+                                            <td>{item?.serviceId?.name}</td>
+                                            <td>{item?.serviceId?.price}</td>
+                                            <td>{item?.slotId?.date} - ({item?.slotId?.startTime} - {item?.slotId?.endTime})</td>
+                                            <td>{item?.vehicleType}</td>
+                                            <td>{item?.vehicleBrand}</td>
+                                            <td>{item?.registrationPlate}</td>
+                                        </tr>)
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-span-1">
+                    <p>Upcomming slot</p>
+                    <div className=" bg-white bg-opacity-40 border border-black border-opacity-35 rounded-xl h-fit p-5">
+                        <img src="" alt="" />
+                        <Lottie
+                            animationData={car_anim}
+                            loop={false}
+                        />
+                        <p className='font-sans text-xl font-bold text-center line-clamp-1'>{recentComming?.serviceId.name}</p>
+                        <p className='font-mono line-clamp-1'>Price: {recentComming?.serviceId.price}</p>
+                        <p className='font-mono line-clamp-1'>Duration: {recentComming?.serviceId.duration}</p>
+                        <div className="w-fit bg-white px-5 mx-auto rounded-2xl py-5 mt-5 border">
+                            <p className='font-mono text-2xl text-center font-bold'>
+                                <Countdown date={recentTimeStamp} autoStart />
+                            </p>
+                            <p className='font-mono text-xs text-center font-bold mt-5'>
+                                Day:Hour:Minute:Second
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 };

@@ -17,6 +17,7 @@ import ServiceManagement from "./pages/Admin/ServiceManagement";
 import BookingManagement from "./pages/Admin/BookingManagement";
 import Dashboard from "./pages/Admin/Dashboard";
 import UDashboard from "./pages/User/Dashboard";
+import Review from "./pages/Review";
 
 const DomRoutes = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ const DomRoutes = createBrowserRouter([
             {
                 path: 'service/:id',
                 element: <Service_Details />
+            },
+            {
+                path: 'review',
+                element: <Review />
             },
             {
                 path: 'booking/:id',

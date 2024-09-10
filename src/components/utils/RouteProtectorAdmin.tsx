@@ -10,7 +10,7 @@ const RouteProtectorAdmin: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     if (isSuccess && data?.data?.ping !== true) {
         if (!location.includes('/auth')) {
-            window.location.href = '/auth/login';
+            window.location.href = '/';
         }
     }
 

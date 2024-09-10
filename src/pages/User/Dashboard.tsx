@@ -76,7 +76,8 @@ const Dashboard = () => {
 
     const recentComming = getRecentUpcomingEvent();
     const recentTimeStamp = new Date(recentComming?.slotId.date + " " + recentComming?.slotId.startTime).getTime();
-
+    console.log(recentTimeStamp);
+    
     const { register, handleSubmit, reset } = useForm();
     const [isProfileEdit, setProfileEdit] = useState(false);
     const HandleUpdateAccount = (data) => {
@@ -86,7 +87,7 @@ const Dashboard = () => {
     }
 
     return (
-        <div className='max-w-[1200px] mx-auto min-h-screen mt-28 m-5'>
+        <div className='max-w-[1200px] mx-auto min-h-screen lg:mt-28 mt-20 m-5 p-5'>
             <LoadingModal isLoading={isFetching} />
             <LoadingModal isLoading={isLoading} />
             <LoadingModal isLoading={fetch} />
@@ -155,7 +156,7 @@ const Dashboard = () => {
                     <button onClick={() => setProfileEdit(true)} className='bg-lime-400 px-6 py-1 rounded-full font-sans text-xl font-bold'>Edit</button>
                 </div>
             </div>
-            <div className="grid grid-cols-3 gap-5 ">
+            <div className="lg:grid grid-cols-3 gap-5 ">
                 <div className="col-span-2">
                     <p>Completed slot</p>
 

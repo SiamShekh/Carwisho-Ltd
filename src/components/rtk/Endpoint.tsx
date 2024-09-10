@@ -161,8 +161,23 @@ const Endpoint = BaseQuery.injectEndpoints({
             }),
             invalidatesTags: ["me"]
         }),
+        CreateAReview: builder.mutation({
+            query: (arg) => ({
+                url: '/review/create-review',
+                body: arg,
+                method: "POST"
+            }),
+            invalidatesTags: ["review"]
+        }),
+        GetReview: builder.query({
+            query: () => ({
+                url: '/review',
+                method: "GET"
+            }),
+            providesTags: ["review"]
+        }),
     })
 })
 
-export const { useLazyOnAuthStateUserQuery, useUpdateAccountInfoMutation, useMyBookingQuery, useAdminDashboardQuery, useGetAllBookingQuery, useChangeSlotStatusMutation, useGetSlotsQuery, useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const { useGetReviewQuery, useCreateAReviewMutation, useLazyOnAuthStateUserQuery, useUpdateAccountInfoMutation, useMyBookingQuery, useAdminDashboardQuery, useGetAllBookingQuery, useChangeSlotStatusMutation, useGetSlotsQuery, useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

@@ -40,7 +40,7 @@ const ServiceManagement = () => {
     }
 
     return (
-        <div className='max-w-[1200px] mx-auto m-5 bg-white p-5 rounded-lg'>
+        <div className='max-w-[1200px] mx-auto m-5 p-5'>
             <LoadingModal isLoading={isFetching} />
             <LoadingModal isLoading={isLoading} />
             <LoadingModal isLoading={UpdateLoading} />
@@ -113,7 +113,7 @@ const ServiceManagement = () => {
                 </dialog>
             }
 
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto bg-white rounded-lg">
                 <table className="table">
                     <thead>
                         <tr>

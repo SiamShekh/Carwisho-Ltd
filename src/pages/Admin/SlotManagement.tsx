@@ -25,15 +25,13 @@ const SlotManagement = () => {
         triggerSlot({ ...payload, service: SelectedService })
     }
 
-    //
-
     return (
-        <div className='max-w-[1200px] mx-auto'>
+        <div className='max-w-[1200px] mx-auto p-5'>
             <LoadingModal isLoading={isFetching} />
             <LoadingModal isLoading={SlotCreatingLoading} />
             <LoadingModal isLoading={isLoading} />
             <LoadingModal isLoading={SlotStatusChangedLoading} />
-            <div className="flex justify-between gap-5">
+            <div className="md:flex justify-between gap-5">
                 <div className="flex-1">
                     <div className="mt-3">
                         <p className='font-sans text-sm'>Create Slots: </p>
@@ -56,7 +54,7 @@ const SlotManagement = () => {
                                         }
                                     </select>
                                 </label>
-                                <div className="flex items-center gap-5">
+                                <div className="lg:flex items-center gap-5">
                                     <label className="form-control w-full flex-1">
                                         <div className="label">
                                             <span className="label-text">Start Time</span>

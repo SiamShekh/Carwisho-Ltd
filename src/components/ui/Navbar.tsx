@@ -2,30 +2,35 @@ import { Link, useLocation } from "react-router-dom";
 import Icon from "../template/Icon";
 import { CiMenuBurger } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
-import { TbBrandBooking } from "react-icons/tb";
 import { IoMdLogIn } from "react-icons/io";
 import { RiCarWashingFill } from "react-icons/ri";
+import { useOnAuthStateQuery } from "../rtk/Endpoint";
+import { GrDashboard } from "react-icons/gr";
 
 const Navbar = () => {
+    const { data } = useOnAuthStateQuery(undefined);
+
     const NavItem = [
+        {
+            id: 0,
+            name: "Dashboard",
+            icon: <GrDashboard />,
+            link: "/dashboard",
+        },
         {
             id: 1,
             name: "Service",
             icon: <RiCarWashingFill />,
             link: "/service",
         },
-        {
-            id: 2,
-            name: "Booking",
-            icon: <TbBrandBooking />,
-            link: "/booking",
-        },
-        {
-            id: 2,
-            name: "Login",
-            icon: <IoMdLogIn />,
-            link: "/login",
-        },
+        ...(data?.data?._id === true ? [
+            {
+                id: 2,
+                name: "Login",
+                icon: <IoMdLogIn />,
+                link: "/login",
+            }
+        ] : [])
     ];
 
     const location = useLocation().pathname;
@@ -50,7 +55,7 @@ const Navbar = () => {
                             <Link to={item?.link} key={key} className={`font-mono text-xl text-opacity-70 text-black`}>{item?.name}</Link>
                         )}
                 </div>
-                <Link to={'/slot'} className="capitalize bg-[#C6A7F1] text-black font-mono text-xl px-6 py-2 rounded-full">
+                <Link to={'/service'} className="capitalize bg-[#C6A7F1] text-black font-mono text-xl px-6 py-2 rounded-full">
                     Book a slot
                 </Link>
             </div>
@@ -81,9 +86,9 @@ const Navbar = () => {
                             </div>
                         </div>
                         <div className="w-full h-[1px] bg-black mb-3"></div>
-                      
+
                         {
-                            NavItem?.map((item, key) => 
+                            NavItem?.map((item, key) =>
                                 location === item?.link ?
                                     <Link to={item?.link} key={key} className="flex items-center gap-2 text-xl bg-[#C6A7F1] p-2 rounded-lg my-3">
                                         {item?.icon}

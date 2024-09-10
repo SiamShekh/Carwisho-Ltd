@@ -28,9 +28,9 @@ interface TBooking {
 const BookingManagement = () => {
     const { data, isFetching } = useGetAllBookingQuery(undefined);
     return (
-        <div className="max-w-[1200px] mx-auto bg-white m-5 rounded-xl">
+        <div className="max-w-[1200px] mx-auto  m-5 p-5 rounded-xl">
             <LoadingModal isLoading={isFetching} />
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto bg-white rounded-xl">
                 <table className="table">
                     <thead>
                         <tr>

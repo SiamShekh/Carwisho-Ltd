@@ -24,13 +24,13 @@ const Dashboard = () => {
 
             {
                 isLoading ?
-                    <div className="grid grid-cols-4 gap-8 w-full">
+                    <div className="grid lg:grid-cols-4 md:grid-cols-2  gap-8 w-full">
                         <div className="skeleton w-full h-28 bg-white p-5 rounded-2xl bg-opacity-60 border-black border-opacity-40 border-[1px]"></div>
                         <div className="skeleton w-full h-28 bg-white p-5 rounded-2xl bg-opacity-60 border-black border-opacity-40 border-[1px]"></div>
                         <div className="skeleton w-full h-28 bg-white p-5 rounded-2xl bg-opacity-60 border-black border-opacity-40 border-[1px]"></div>
                         <div className="skeleton w-full h-28 bg-white p-5 rounded-2xl bg-opacity-60 border-black border-opacity-40 border-[1px]"></div>
                     </div> :
-                    <div className="grid grid-cols-4 gap-8 w-full">
+                    <div className="grid lg:grid-cols-4 md:grid-cols-2  gap-8 w-full">
                         <div className={`bg-white w-full p-5 rounded-2xl bg-opacity-60 border-black border-opacity-40 border-[1px] flex justify-between items-center`}>
                             <div className="">
                                 <p className='font-sans font-bold'>Total User</p>
@@ -79,7 +79,7 @@ const Dashboard = () => {
 
             <div className="mt-5">
                 <p className='font-sans'>Recent 5 User</p>
-                <div className="grid grid-cols-3 gap-5">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {
                         data?.data?.data?.user?.map((item: TUser, index: number) => <div key={index} className="p-5 bg-white rounded-lg mt-1 backdrop-blur-2xl bg-opacity-50 border border-black border-opacity-10 flex gap-3 items-center">
                             <img src="https://cdn.prod.website-files.com/5e6b63ac3b6e2522d1889f4a/63b58a00f6d3905f21353830_nfts3.jpg" alt="profile" className="size-14 rounded-full" />

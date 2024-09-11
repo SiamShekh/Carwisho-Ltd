@@ -17,9 +17,11 @@ const Service_Details = () => {
     const { data, isLoading } = useSingleServiceDataQuery(id);
     const dateLocal = new Date();
     const dt = dateLocal.getFullYear() + "-"
-        + String(dateLocal.getDate()).padStart(2, '0')+ "-"
-        + String(dateLocal.getMonth() + 1).padStart(2, '0') ;
+        + String(dateLocal.getMonth()).padStart(2, '0')+ "-"
+        + String(dateLocal.getDate() + 1).padStart(2, '0') ;
+        
     const [date, setDate] = useState(dt);
+    
     const [slot_selected, setSlotSelected] = useState("");
     const { data: SlotInfo, isLoading: SlotLoading } = useSlotInformissionQuery({ date, service: id });
 

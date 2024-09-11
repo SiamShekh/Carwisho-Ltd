@@ -2,9 +2,8 @@ import { useParams } from "react-router-dom";
 import { useInitiatePaymentMutation, useOnAuthStateUserQuery, useSingleSlotInformissionQuery } from "../components/rtk/Endpoint";
 import LoadingModal from "../components/ui/LoadingModal";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { setBooking } from "../components/rtk/BookingSlice";
-import { useEffect } from "react";
+import toast from "react-hot-toast";
+
 
 interface TBooking {
     vehicleType: string,
@@ -19,20 +18,27 @@ const Booking = () => {
     const { data, isLoading } = useSingleSlotInformissionQuery(id);
     const { data: UserData, isLoading: UserLoading } = useOnAuthStateUserQuery(undefined);
     const { register, handleSubmit } = useForm<TBooking>();
-    const [TriggerInitiatePayment, { data: InitiatePayment_Data, isLoading: useInitiatePaymentMutation_Loading }] = useInitiatePaymentMutation();
+    const [TriggerInitiatePayment, { isLoading: useInitiatePaymentMutation_Loading }] = useInitiatePaymentMutation();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let res: any = {};
 
     const HandlePayBooking = async (payload: TBooking) => {
-        await TriggerInitiatePayment({
-            user: UserData?.data?._id,
-            slot: data?.data?._id,
-            ...payload
-        });
-
-        if (await InitiatePayment_Data?.data?.result) {
-            window.location.href = await InitiatePayment_Data?.data?.payment_url;
+        try {
+            res = await TriggerInitiatePayment({
+                user: UserData?.data?._id,
+                slot: data?.data?._id,
+                ...payload
+            }).unwrap();
+        } catch (error) {
+            toast.error("Booking Failed...");
+        }finally{
+            if (res?.data?.payment_url !== undefined) {
+                window.location.href = res.data.payment_url;
+            } else {
+                toast.error("Payment URL not found");
+            }
         }
-    }
-
+    };
 
 
 

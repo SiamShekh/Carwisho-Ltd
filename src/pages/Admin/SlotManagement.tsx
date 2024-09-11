@@ -1,8 +1,9 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useChangeSlotStatusMutation, useCreateSlotsMutation, useGetSlotsQuery, useServiceListQuery } from '../../components/rtk/Endpoint';
 import LoadingModal from '../../components/ui/LoadingModal';
 import { TService } from './ServiceManagement';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 interface TSlot {
     _id: string,
@@ -15,14 +16,23 @@ interface TSlot {
 
 const SlotManagement = () => {
     const { data, isFetching } = useServiceListQuery(undefined);
-    const [SelectedService, setSelectedService] = useState<string | undefined>(undefined);
+    const [SelectedService, setSelectedService] = useState<string | undefined>(data?.data[0]?._id);
     const [SelectedServiceId, setSelectedServiceId] = useState<string | undefined>(undefined);
     const { register, handleSubmit } = useForm<TSlot>();
     const [triggerSlot, { data: SlotData, isLoading: SlotCreatingLoading }] = useCreateSlotsMutation();
     const [triggerSlotStatusChanged, { isLoading: SlotStatusChangedLoading }] = useChangeSlotStatusMutation();
     const { data: SlotByService, isLoading } = useGetSlotsQuery(SelectedServiceId);
     const HandleCreateSlot = (payload: TSlot) => {
-        triggerSlot({ ...payload, service: SelectedService })
+        console.log({ ...payload, service: SelectedService });
+
+        if (SelectedService) {
+            if (SelectedService === "Pick one") {
+                toast.error("Select A Spacific Service...")
+            }
+            triggerSlot({ ...payload, service: SelectedService })
+        } else {
+            toast.error("Select A Spacific Service...")
+        }
     }
 
     return (
@@ -43,10 +53,9 @@ const SlotManagement = () => {
                                     </div>
                                     <select required onChange={(e) => {
                                         const a = data?.data?.filter((item: TService) => item?.name === e.target.value);
-                                        console.log();
                                         setSelectedService(a[0]?._id);
                                     }} className="select select-bordered">
-                                        <option disabled value={"Pick one"}>Pick one</option>
+                                        <option value={"Pick one"}>Pick one</option>
                                         {
                                             data?.data?.map((item: TService, index: string) =>
                                                 <option key={index}>{item?.name}</option>

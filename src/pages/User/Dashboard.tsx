@@ -147,8 +147,8 @@ const Dashboard = () => {
                 <div className="flex gap-3">
                     <img src="https://i.guim.co.uk/img/media/b8a75934f827bdaf02a3814d1669c8da19886881/0_727_3500_2100/master/3500.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1ad9e12c908d182c891b03abc19988f4" className='size-10 rounded-full' />
                     <div className="">
-                        <p className='font-bold'>Siam Sheikh</p>
-                        <p>User</p>
+                        <p className='font-bold'>{Account?.data?.name}</p>
+                        <p>{Account?.data?.role}</p>
                     </div>
                 </div>
 

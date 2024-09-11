@@ -12,6 +12,7 @@ import {
     PURGE,
     REGISTER,
   } from 'redux-persist'
+import BookingSlice from "./BookingSlice";
 
 const persistConfig = {
     key: 'root',
@@ -20,12 +21,14 @@ const persistConfig = {
 }
 
 const UserPersisted = persistReducer(persistConfig, UserSlice.reducer);
+const BookingPersisted = persistReducer(persistConfig, BookingSlice.reducer);
 
 
 const ReduxStore = configureStore({
     reducer: {
         [BaseQuery.reducerPath]: BaseQuery.reducer,
-        'user': UserPersisted
+        'user': UserPersisted,
+        'booking': BookingPersisted
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

@@ -1,10 +1,11 @@
 import Countdown from 'react-countdown';
-import { useLazyOnAuthStateUserQuery, useMyBookingQuery, useOnAuthStateUserQuery, useUpdateAccountInfoMutation } from '../../components/rtk/Endpoint';
+import { useMyBookingQuery, useOnAuthStateUserQuery, useUpdateAccountInfoMutation } from '../../components/rtk/Endpoint';
 import LoadingModal from '../../components/ui/LoadingModal';
 import Lottie from 'lottie-react';
 import car_anim from "../../assets/raw/car_anim.json";
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { TUser } from '../Admin/Dashboard';
 interface TBooking {
     _id: string;
     customerId: TCustomer;
@@ -76,11 +77,10 @@ const Dashboard = () => {
 
     const recentComming = getRecentUpcomingEvent();
     const recentTimeStamp = new Date(recentComming?.slotId.date + " " + recentComming?.slotId.startTime).getTime();
-    console.log(recentTimeStamp);
-    
-    const { register, handleSubmit, reset } = useForm();
+
+    const { register, handleSubmit, reset } = useForm<TUser>();
     const [isProfileEdit, setProfileEdit] = useState(false);
-    const HandleUpdateAccount = (data) => {
+    const HandleUpdateAccount = (data: Partial<TUser>) => {
         triggerUpdateAccount(data);
         setProfileEdit(true);
         reset();
@@ -135,7 +135,7 @@ const Dashboard = () => {
 
                             <div className="flex justify-between items-center gap-4">
                                 <button type="submit" className='bg-lime-400 p-3 w-full rounded-lg mt-5'>Update Account</button>
-                                <button type="button" className='bg-lime-400 p-3 w-full rounded-lg mt-5' onClick={()=> setProfileEdit(false)}>Cancel</button>
+                                <button type="button" className='bg-lime-400 p-3 w-full rounded-lg mt-5' onClick={() => setProfileEdit(false)}>Cancel</button>
 
                             </div>
                         </form>
@@ -158,60 +158,77 @@ const Dashboard = () => {
             </div>
             <div className="lg:grid grid-cols-3 gap-5 ">
                 <div className="col-span-2">
-                    <p>Completed slot</p>
+                    {
+                        passedEvents?.length ?
+                            <>
+                                <p>Completed slot</p>
 
-                    <div className="col-span-2 bg-white bg-opacity-40 border border-black border-opacity-35 rounded-xl h-fit">
-                        <div className="overflow-x-auto">
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Slot Time</th>
-                                        <th>Vehicle Type</th>
-                                        <th>Vehicle Brand</th>
-                                        <th>Registration Plate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        passedEvents.map((item, index) => <tr className={`capitalize`} key={index}>
-                                            <th>{index + 1}</th>
-                                            <td>{item?.serviceId?.name}</td>
-                                            <td>{item?.serviceId?.price}</td>
-                                            <td>{item?.slotId?.date} - ({item?.slotId?.startTime} - {item?.slotId?.endTime})</td>
-                                            <td>{item?.vehicleType}</td>
-                                            <td>{item?.vehicleBrand}</td>
-                                            <td>{item?.registrationPlate}</td>
-                                        </tr>)
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                <div className="col-span-2 bg-white bg-opacity-40 border border-black border-opacity-35 rounded-xl h-fit">
+                                    <div className="overflow-x-auto">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Name</th>
+                                                    <th>Price</th>
+                                                    <th>Slot Time</th>
+                                                    <th>Vehicle Type</th>
+                                                    <th>Vehicle Brand</th>
+                                                    <th>Registration Plate</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    passedEvents.map((item, index) => <tr className={`capitalize`} key={index}>
+                                                        <th>{index + 1}</th>
+                                                        <td>{item?.serviceId?.name}</td>
+                                                        <td>{item?.serviceId?.price}</td>
+                                                        <td>{item?.slotId?.date} - ({item?.slotId?.startTime} - {item?.slotId?.endTime})</td>
+                                                        <td>{item?.vehicleType}</td>
+                                                        <td>{item?.vehicleBrand}</td>
+                                                        <td>{item?.registrationPlate}</td>
+                                                    </tr>)
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </> :
+                            <p>There are no slots that you have booked or completed.</p>
+                    }
                 </div>
 
                 <div className="col-span-1">
-                    <p>Upcomming slot</p>
-                    <div className=" bg-white bg-opacity-40 border border-black border-opacity-35 rounded-xl h-fit p-5">
-                        <img src="" alt="" />
-                        <Lottie
-                            animationData={car_anim}
-                            loop={false}
-                        />
-                        <p className='font-sans text-xl font-bold text-center line-clamp-1'>{recentComming?.serviceId.name}</p>
-                        <p className='font-mono line-clamp-1'>Price: {recentComming?.serviceId.price}</p>
-                        <p className='font-mono line-clamp-1'>Duration: {recentComming?.serviceId.duration}</p>
-                        <div className="w-fit bg-white px-5 mx-auto rounded-2xl py-5 mt-5 border">
-                            <p className='font-mono text-2xl text-center font-bold'>
-                                <Countdown date={recentTimeStamp} autoStart />
-                            </p>
-                            <p className='font-mono text-xs text-center font-bold mt-5'>
-                                Day:Hour:Minute:Second
-                            </p>
-                        </div>
-                    </div>
+                    {
+                        recentComming?.serviceId?.name as string ?
+                            <>
+                                <p>Upcomming slot</p>
+                                <div className=" bg-white bg-opacity-40 border border-black border-opacity-35 rounded-xl h-fit p-5">
+                                    <img src="" alt="" />
+                                    <Lottie
+                                        animationData={car_anim}
+                                        loop={false}
+                                    />
+                                    <p className='font-sans text-xl font-bold text-center line-clamp-1'>{recentComming?.serviceId.name}</p>
+                                    <p className='font-mono line-clamp-1'>Price: {recentComming?.serviceId.price}</p>
+                                    <p className='font-mono line-clamp-1'>Duration: {recentComming?.serviceId.duration}</p>
+                                    <div className="w-fit bg-white px-5 mx-auto rounded-2xl py-5 mt-5 border">
+                                        <p className='font-mono text-2xl text-center font-bold'>
+                                            {
+                                                recentTimeStamp &&
+                                                <Countdown date={recentTimeStamp} autoStart />
+
+                                            }
+                                        </p>
+                                        <p className='font-mono text-xs text-center font-bold mt-5'>
+                                            Day:Hour:Minute:Second
+                                        </p>
+                                    </div>
+                                </div>
+                            </> :
+                            <p>There are no upcoming slots that you have booked.</p>
+                    }
+
                 </div>
             </div>
 

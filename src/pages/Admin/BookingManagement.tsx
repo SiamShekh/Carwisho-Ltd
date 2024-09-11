@@ -1,4 +1,3 @@
-import React from 'react';
 import LoadingModal from '../../components/ui/LoadingModal';
 import { useGetAllBookingQuery } from '../../components/rtk/Endpoint';
 

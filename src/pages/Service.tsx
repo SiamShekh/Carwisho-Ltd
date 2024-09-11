@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { FaFilter } from "react-icons/fa";
 import { FaFilterCircleDollar } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
@@ -35,24 +37,24 @@ interface TFilterMobile {
 const Service = () => {
     const [Filter, setFilter] = useState<TFilter | string>("");
     const { isLoading, data } = useServiceListQuery(Filter);
-    const { register, handleSubmit } = useForm<TFilter, TFilterMobile>();
+    const { register, handleSubmit } = useForm();
 
     const HandleFilter = (data: TFilter) => {
         setFilter(data)
     }
 
-
     const HandleFilterMobile = (data: TFilterMobile) => {
-        const dataObj = {
+        const dataObj: TFilter = {
             searchTerm: data?.searchTermMobile,
             maxPrice: data?.maxPriceMobile,
             minPrice: data?.minPriceMobile,
             sort: data?.sortMobile,
             dsc: data?.dscMobile,
-        }
-
-        setFilter(dataObj)
-    }
+        };
+    
+        setFilter(dataObj);
+    };
+    
 
     return (
         <div className=" mt-20 p-5">
@@ -84,7 +86,7 @@ const Service = () => {
                                 <div className="flex justify-between items-center gap-3">
                                     <div className="flex items-center gap-3">
                                         <input type="number" {...register('minPriceMobile')} className="outline-none py-2 bg-white rounded-xl border w-16 pl-2" placeholder="min" />
-                                        <input type="number" {...register('maxPriceMobile')} className="outline-none py-2 bg-white rounded-xl border w-16 pl-2" placeholder="max" />
+                                        <input type="number" {...register("maxPriceMobile")} className="outline-none py-2 bg-white rounded-xl border w-16 pl-2" placeholder="max" />
                                         <button className="p-3 bg-[#E9E7E7] rounded-2xl" type="submit">
                                             <FaFilterCircleDollar />
                                         </button>

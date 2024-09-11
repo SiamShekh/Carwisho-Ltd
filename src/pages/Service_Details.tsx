@@ -16,8 +16,10 @@ const Service_Details = () => {
     const id = useParams().id;
     const { data, isLoading } = useSingleServiceDataQuery(id);
     const dateLocal = new Date();
-    // const [date, setDate] = useState(dateLocal.toISOString().split("T")[0]);
-    const [date, setDate] = useState("2024-06-20");
+    const dt = dateLocal.getFullYear() + "-"
+        + String(dateLocal.getDate()).padStart(2, '0')+ "-"
+        + String(dateLocal.getMonth() + 1).padStart(2, '0') ;
+    const [date, setDate] = useState(dt);
     const [slot_selected, setSlotSelected] = useState("");
     const { data: SlotInfo, isLoading: SlotLoading } = useSlotInformissionQuery({ date, service: id });
 
@@ -47,7 +49,7 @@ const Service_Details = () => {
 
             </div>
             {
-                SlotInfo?.message === "No Data Found!" && <p className="font-mono text-2xl font-bold mt-5 text-center">Ah, there are no available slots for this date or service.</p>
+                SlotInfo?.message === "No Data Found!" && <p className="font-mono text-2xl font-bold mt-5 text-center">Ah, there are no available slots for this date or service. change the date or pick new one</p>
             }
 
             <div className="overflow-x-auto bg-white my-5 p-5 rounded-lg ">

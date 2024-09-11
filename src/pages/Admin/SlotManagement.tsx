@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { useChangeSlotStatusMutation, useCreateSlotsMutation, useGetSlotsQuery, useServiceListQuery } from '../../components/rtk/Endpoint';
 import LoadingModal from '../../components/ui/LoadingModal';
 import { TService } from './ServiceManagement';

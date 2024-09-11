@@ -1,5 +1,3 @@
-import React from 'react';
-import Icon from '../template/Icon';
 import { useOnAuthStateQuery } from '../rtk/Endpoint';
 
 const Footer = () => {

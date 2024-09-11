@@ -7,6 +7,7 @@ import { TbBrandBooking } from 'react-icons/tb';
 
 export interface TUser {
     name: string,
+    newPassword?: string,
     email: string,
     password: string,
     phone: string,

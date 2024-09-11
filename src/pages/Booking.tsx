@@ -1,18 +1,47 @@
 import { useParams } from "react-router-dom";
-import { useOnAuthStateUserQuery, useSingleSlotInformissionQuery } from "../components/rtk/Endpoint";
+import { useInitiatePaymentMutation, useOnAuthStateUserQuery, useSingleSlotInformissionQuery } from "../components/rtk/Endpoint";
 import LoadingModal from "../components/ui/LoadingModal";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { setBooking } from "../components/rtk/BookingSlice";
+import { useEffect } from "react";
+
+interface TBooking {
+    vehicleType: string,
+    vehicleBrand: string,
+    vehicleModel: string,
+    manufacturingYear: number,
+    registrationPlate: string,
+}
 
 const Booking = () => {
     const id = useParams().id;
     const { data, isLoading } = useSingleSlotInformissionQuery(id);
     const { data: UserData, isLoading: UserLoading } = useOnAuthStateUserQuery(undefined);
-    console.log(UserData);
+    const { register, handleSubmit } = useForm<TBooking>();
+    const [TriggerInitiatePayment, { data: InitiatePayment_Data, isLoading: useInitiatePaymentMutation_Loading }] = useInitiatePaymentMutation();
+
+    const HandlePayBooking = async (payload: TBooking) => {
+        await TriggerInitiatePayment({
+            user: UserData?.data?._id,
+            slot: data?.data?._id,
+            ...payload
+        });
+
+        if (await InitiatePayment_Data?.data?.result) {
+            window.location.href = await InitiatePayment_Data?.data?.payment_url;
+        }
+    }
+
+
+
 
     return (
         <div className="min-h-screen mt-28 p-5 max-w-[1200px] mx-auto">
             <LoadingModal isLoading={isLoading} />
             <LoadingModal isLoading={UserLoading} />
-            <div className="flex justify-between gap-5 flex-col md:flex-row">
+            <LoadingModal isLoading={useInitiatePaymentMutation_Loading} />
+            <form onSubmit={handleSubmit(HandlePayBooking)} className="flex justify-between gap-5 flex-col md:flex-row">
 
                 <div className="flex-1">
                     <p className="text-xl">Service Info</p>
@@ -24,7 +53,7 @@ const Booking = () => {
                             <p className="font-sm">Time: {data?.data?.startTime + " - " + data?.data?.endTime}</p>
                             <p>
                                 {/* <div className="badge badge-secondary">{data?.data?.service?.price} TK</div> */}
-                                <div className="badge badge-accent ml-3">{data?.data?.service?.duration} MIns</div>
+                                <div className="badge badge-accent ml-3">{data?.data?.service?.duration} Mins</div>
                             </p>
                         </div>
                     </div>
@@ -54,7 +83,7 @@ const Booking = () => {
                             </div>
                             <div className="h-[1px] w-full bg-gray-400 mt-5"></div>
 
-                            <button className="bg-lime-400 w-full py-3 mt-5 rounded-full text-xl font-bold">Pay Now</button>
+                            <button type="submit" disabled={data?.data?.isBooked === 'booked' ? true : false} className="bg-lime-400 w-full py-3 mt-5 rounded-full text-xl font-bold">{data?.data?.isBooked === 'booked' ? 'Booked' : 'Pay now'}</button>
                         </div>
                     </div>
                 </div>
@@ -74,24 +103,24 @@ const Booking = () => {
                         <p className="text-xl">Vehicle Info</p>
                         <div className="p-5 bg-white rounded-lg mt-1 backdrop-blur-2xl bg-opacity-50 border border-black border-opacity-10  gap-3 items-center grid grid-cols-2 ">
                             <div className=" flex gap-2">
-                                <input type="text" placeholder="Vehicle Type" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
+                                <input type="text" disabled={data?.data?.isBooked === 'booked' ? true : false} {...register('vehicleType')} required placeholder="Vehicle Type" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
                             </div>
                             <div className=" flex gap-2">
-                                <input type="text" placeholder="Vehicle Brand" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
+                                <input type="text" disabled={data?.data?.isBooked === 'booked' ? true : false} {...register('vehicleBrand')} required placeholder="Vehicle Brand" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
                             </div>
                             <div className=" flex gap-2">
-                                <input type="text" placeholder="Vehicle Model" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
+                                <input type="text" disabled={data?.data?.isBooked === 'booked' ? true : false} {...register('vehicleModel')} required placeholder="Vehicle Model" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
                             </div>
                             <div className=" flex gap-2">
-                                <input type="text" placeholder="Manufacturing Year" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
+                                <input type="number" disabled={data?.data?.isBooked === 'booked' ? true : false} {...register('manufacturingYear', { valueAsNumber: true })} required placeholder="Manufacturing Year" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
                             </div>
                             <div className="col-span-2 flex gap-2">
-                                <input type="text" placeholder="Registration Plate" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
+                                <input type="text" disabled={data?.data?.isBooked === 'booked' ? true : false} {...register('registrationPlate')} required placeholder="Registration Plate" className="outline-none p-3 rounded-lg bg-gray-200 w-full" />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     );
 };

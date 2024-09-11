@@ -18,14 +18,14 @@ const Review = () => {
     const { data: ReviewData, isFetching: ReviewFetchingData } = useGetReviewQuery(undefined);
 
     return (
-        <div className="max-h-screen mt-28 mx-auto">
+        <div className="min-h-screen mt-28 mx-auto">
             <LoadingModal isLoading={ReviewFetchingData} />
 
             <section>
-                <div className="py-10 max-w-[1200px] mx-auto">
+                <div className="py-10 max-w-[1200px] mx-auto p-5">
                     <p className="text-black text-opacity-60 text-center font-mono text-xl">Testimonial</p>
                     <p className="text-black text-center font-mono text-2xl mt-3">Transformative Client Experience</p>
-                    <div className="grid grid-cols-3 gap-5 mt-10">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
                         {
                             ReviewData?.data?.map((item: TReview, index: number) => <div key={index} className="p-5 bg-white rounded-2xl relative pb-20">
                                 <FaQuoteLeft className="text-4xl text-gray-500 my-3" />

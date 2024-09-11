@@ -18,6 +18,7 @@ import BookingManagement from "./pages/Admin/BookingManagement";
 import Dashboard from "./pages/Admin/Dashboard";
 import UDashboard from "./pages/User/Dashboard";
 import Review from "./pages/Review";
+import SuccessPage from "./pages/SuccessPage";
 
 const DomRoutes = createBrowserRouter([
     {
@@ -31,15 +32,15 @@ const DomRoutes = createBrowserRouter([
             },
             {
                 path: 'dashboard',
-                element: <UDashboard />
+                element: <RouteProtector><UDashboard /></RouteProtector>
             },
             {
                 path: 'service',
-                element: <RouteProtector><Service /></RouteProtector>
+                element: <Service />
             },
             {
                 path: 'service/:id',
-                element: <Service_Details />
+                element: <RouteProtector><Service_Details /></RouteProtector>
             },
             {
                 path: 'review',
@@ -47,7 +48,7 @@ const DomRoutes = createBrowserRouter([
             },
             {
                 path: 'booking/:id',
-                element: <Booking />
+                element: <RouteProtector><Booking /></RouteProtector>
             }
         ]
     },
@@ -96,6 +97,10 @@ const DomRoutes = createBrowserRouter([
                 element: <BookingManagement />
             }
         ]
+    },
+    {
+        path: 'successful',
+        element: <SuccessPage />
     }
 ]);
 

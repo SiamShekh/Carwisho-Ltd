@@ -6,8 +6,7 @@ import { FaArrowPointer } from "react-icons/fa6";
 import { useCreateAReviewMutation, useGetReviewQuery, useOnAuthStateUserQuery } from "../components/rtk/Endpoint";
 import { useForm } from "react-hook-form";
 import LoadingModal from "../components/ui/LoadingModal";
-
-interface TReview { review: string };
+interface TReview { review: string }
 
 const Home = () => {
     const { data, isFetching } = useOnAuthStateUserQuery(undefined);
@@ -121,10 +120,10 @@ const Home = () => {
             </section>
 
             <section>
-                <div className="py-10 max-w-[1200px] mx-auto">
+                <div className="py-10 max-w-[1200px] mx-auto p-5">
                     <p className="text-black text-opacity-60 text-center font-mono text-xl">Testimonial</p>
                     <p className="text-black text-center font-mono text-2xl mt-3">Transformative Client Experience</p>
-                    <div className="grid grid-cols-3 gap-5 mt-10">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
                         <div className="p-5 bg-white rounded-2xl relative pb-20">
                             <FaQuoteLeft className="text-4xl text-gray-500 my-3" />
                             <p className="text-xl">{ReviewData?.data[0]?.review}</p>

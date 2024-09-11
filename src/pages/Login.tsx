@@ -39,7 +39,7 @@ const Login = () => {
             <p className="font-bold text-4xl text-center">Welcome back!</p>
             <form onSubmit={handleSubmit(HandleLogin)} className="flex items-center mt-3 flex-col gap-3 max-w-xs mx-auto">
                 <input type="text" {...register('email')} required className="bg-gray-300 outline-none border border-white w-full h-10 rounded-xl px-5" placeholder="Email" />
-                <input type="text" {...register('password')} required className="bg-gray-300 outline-none border border-white w-full h-10 rounded-xl px-5" placeholder="Password" />
+                <input type="password" {...register('password')} required className="bg-gray-300 outline-none border border-white w-full h-10 rounded-xl px-5" placeholder="Password" />
 
                 <button type='submit' className="outline-none border border-white w-full h-10 rounded-full px-5 flex justify-center items-center gap-3 text-xl font-mono bg-primary">
                     Login

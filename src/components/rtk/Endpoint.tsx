@@ -94,7 +94,8 @@ const Endpoint = BaseQuery.injectEndpoints({
                 url: '/slots',
                 method: "GET",
                 params: { id: arg }
-            })
+            }),
+            providesTags: ["booking"]
         }),
         UserListAdmin: builder.query({
             query: () => ({
@@ -140,6 +141,7 @@ const Endpoint = BaseQuery.injectEndpoints({
                 url: '/bookings',
                 method: "GET"
             }),
+            providesTags: ["booking"]
         }),
         AdminDashboard: builder.query({
             query: () => ({
@@ -152,6 +154,7 @@ const Endpoint = BaseQuery.injectEndpoints({
                 url: '/my-bookings',
                 method: "GET"
             }),
+            providesTags: ["booking"]
         }),
         UpdateAccountInfo: builder.mutation({
             query: (arg) => ({
@@ -169,6 +172,14 @@ const Endpoint = BaseQuery.injectEndpoints({
             }),
             invalidatesTags: ["review"]
         }),
+        BookASlot: builder.mutation({
+            query: (arg) => ({
+                url: '/bookings',
+                body: arg,
+                method: "POST"
+            }),
+            invalidatesTags: ["booking"]
+        }),
         GetReview: builder.query({
             query: () => ({
                 url: '/review',
@@ -176,8 +187,15 @@ const Endpoint = BaseQuery.injectEndpoints({
             }),
             providesTags: ["review"]
         }),
+        InitiatePayment: builder.mutation({
+            query: (arg)=> ({
+                url: "/payment/initiate-pay",
+                method: "POST",
+                body: arg
+            })
+        })
     })
 })
 
-export const { useGetReviewQuery, useCreateAReviewMutation, useLazyOnAuthStateUserQuery, useUpdateAccountInfoMutation, useMyBookingQuery, useAdminDashboardQuery, useGetAllBookingQuery, useChangeSlotStatusMutation, useGetSlotsQuery, useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
+export const {useInitiatePaymentMutation, useBookASlotMutation, useGetReviewQuery, useCreateAReviewMutation, useLazyOnAuthStateUserQuery, useUpdateAccountInfoMutation, useMyBookingQuery, useAdminDashboardQuery, useGetAllBookingQuery, useChangeSlotStatusMutation, useGetSlotsQuery, useCreateSlotsMutation, useDeleteServiceAdminMutation, useUpdateServiceAdminMutation, useAddServiceAdminMutation, useAppointAdminMutation, useServiceListAdminQuery, useUserListAdminQuery, useOnAuthStateAdminQuery, useOnAuthStateUserQuery, useSingleSlotInformissionQuery, useSlotInformissionQuery, useSingleServiceDataQuery, useLoginUserMutation, useRegisterUserMutation, useOnAuthStateQuery, useLazyOnAuthStateQuery, useServiceListQuery } = Endpoint;
 export default Endpoint;

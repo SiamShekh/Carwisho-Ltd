@@ -64,7 +64,11 @@ const Home = () => {
                                     </div>
                                     <div className="flex items-center gap-2 text-white">
                                         <FaCheck className="text-green-500" />
-                                        <p>We have more then 10 years expreance</p>
+                                        <p>We have more then 100 team member</p>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-white">
+                                        <FaCheck className="text-green-500" />
+                                        <p>We clean 1000+ car</p>
                                     </div>
                                 </div>
                             </div>
